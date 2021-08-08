@@ -21,8 +21,8 @@ python manage.py migrate
 # install coverage package
 pip instal coverage
 
-# use coverage to run the tests 
-coverage run --omit='*/venv/*' manage.py tests
+# use coverage to run the test
+coverage run --omit='*/venv/*' manage.py test
 
 # to get annotated HTML listings detailing missed lines
 coverage html
@@ -36,5 +36,5 @@ pin freeze > requriements.txt
 # djangorestframeowrk document reference
 https://www.django-rest-framework.org/
 
-
+https://www.django-rest-framework.org/api-guide/generic-views/
 

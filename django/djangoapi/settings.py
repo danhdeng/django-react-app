@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     
     #local appl
     'blog',
-    'api',
+    'blogapi',
 ]
 
 MIDDLEWARE = [
@@ -116,6 +116,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+
 USE_L10N = True
 
 USE_TZ = True
@@ -130,3 +131,10 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# project level access permission
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}

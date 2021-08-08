@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import PostListView, PostDetailView
-app_name="api"
+app_name="blogapi"
 
 urlpatterns = [
     path('<int:pk>/', PostDetailView.as_view(), name="post-details"),
