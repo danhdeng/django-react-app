@@ -31,7 +31,9 @@ coverage html
 pip install djangorestframework
 
 # export all installed package to requriements.txt
-pin freeze > requriements.txt
+pip freeze > requriements.txt
+# install from requriements
+pip install -r requirements.txt
 
 # djangorestframeowrk document reference
 https://www.django-rest-framework.org/
