@@ -21,7 +21,7 @@ const Posts = (props:any) => {
 						return (
 							// Enterprise card is full width at sm breakpoint
 							<Grid item key={post.id} xs={12} md={4}>
-								<Card>
+								<Card className={classes.card}>
 									<CardMedia
 										className={classes.cardMedia}
 										image="https://source.unsplash.com/random"
