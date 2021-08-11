@@ -4,7 +4,6 @@ import Posts from './components/Post/Posts'
 import {PostLoading} from './components/PostLoading'
 
 function App() {
-  const [isLoading, setIsLoading]=useState(false)
   const [appData, setAppData]=useState({
     loading:false,
     posts:null 
@@ -15,7 +14,7 @@ function App() {
   const apiUrl="http://localhost:8000/api/";
 
   const loadPostData=async ()=>{
-    await wait(10000);
+    await wait(4000);
     fetch(apiUrl).then((response)=>response.json())
                   .then((data)=>{
                     console.log(data)

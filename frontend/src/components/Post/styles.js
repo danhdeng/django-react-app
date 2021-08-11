@@ -3,12 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
 	card:{
 		maxWidth: 345,
-		minWidth: 100,
-		margin: "3rem",  
+		// minWidth: 100,
+		// margin: "3rem",  
 	},
     cardMedia: {
 		paddingTop: '56.25%', // 16:9
-		height:140,
 	},
 	link: {
 		margin: theme.spacing(1, 1.5),
