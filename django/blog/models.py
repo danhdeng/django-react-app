@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from users.models import NewUser
 
 # Create your models here.
 
@@ -27,7 +28,7 @@ class Post(models.Model):
     content = models.TextField()
     slug =models.SlugField(max_length=300, unique_for_date='published')
     published = models.DateTimeField(auto_now_add=True)
-    author =models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+    author =models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='blog_posts')
     status=models.CharField(max_length=15, choices=options, default='published')
     objects= models.Manager() #default data manager
     postobjects = PostObjects() #custom data manager filter by status published
