@@ -138,10 +138,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # project level access permission
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ]
 }
 
+# API Reference
+# AllowAny
+# IsAdminUser
+# IsAuthenticated
+# IsAuthenticatedOrReadOnly
+# DjangoModelPermissions
+# DjangoModelPermissionsOrAnonReadOnly
+# DjangoObjectPermissions
+# Custom permissions
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
