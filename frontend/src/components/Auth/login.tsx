@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {axiosInstance} from '../../axios';
+import axiosInstance from '../../axios';
 import { useHistory } from 'react-router-dom';
 
 //Material ui
@@ -30,17 +30,17 @@ export default function Login() {
 
     const handleSubmit=(e:any)=>{
         e.preventDefault();
-
-        axiosInstance.post('user/login/',{
+        axiosInstance.post('token/',{
           email:formData.email,
           password: formData.password,
         }).then((res)=>{
           history.push("/");
-          console.log(res);
-          console.log(res.data);
-        }).catch(async (error) => {
-          const response = error.response;
-          console.log(response.data);
+          localStorage.setItem("access_token", res.data.access);
+          localStorage.setItem("refresh_token", res.data.refresh);
+          axiosInstance.defaults.headers["Authorization"]=`JWT ${localStorage.getItem('access_token')}`
+          history.push('/');
+        }).catch((error) => {
+          console.log(error);
       });
         
     }

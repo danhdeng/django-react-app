@@ -8,6 +8,7 @@ import  Header from './components/Header/Header';
 import  Footer from './components/Footer/Footer';
 import Signup from './components/Auth/register';
 import Login from './components/Auth/login';
+import Logout from './components/Auth/logout';
 
 const routing=(
   <Router>
@@ -17,6 +18,7 @@ const routing=(
           <Route exact path='/' component={App} />
           <Route exact path='/register' component={Signup} />
           <Route exact path='/login' component={Login} />
+          <Route exact path='/logout' component={Logout} />
         </Switch>
         <Footer />
     </React.StrictMode>

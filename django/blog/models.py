@@ -37,5 +37,5 @@ class Post(models.Model):
         ordering = ('-published',)
     
     def __str__(self):
-        return self.title
+        return f'{self.pk} {self.title}'
 

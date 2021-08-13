@@ -14,7 +14,7 @@ function App() {
   const apiUrl="http://localhost:8000/api/";
 
   const loadPostData=async ()=>{
-    await wait(4000);
+    //await wait(4000);
     fetch(apiUrl).then((response)=>response.json())
                   .then((data)=>{
                     console.log(data)
