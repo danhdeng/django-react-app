@@ -15,6 +15,7 @@ export default function Signup() {
     const initialFormData =Object.freeze({
         email: '',
         username:'',
+        firstname:'',
         password: '',
     });
 
@@ -25,6 +26,25 @@ export default function Signup() {
             ...formData,
             [e.target.name]: e.target.value.trim(),
         })
+    }
+
+    const handleSubmit=(e:any)=>{
+        e.preventDefault();
+
+        axiosInstance.post('user/register/',{
+          email:formData.email,
+          user_name: formData.username,
+          password: formData.password,
+          firstname: formData.firstname,
+        }).then((res)=>{
+          history.push("/login");
+          console.log(res);
+          console.log(res.data);
+        }).catch(async (error) => {
+          const response = error.response;
+          console.log(response.data);
+      });
+        
     }
 
     return (
@@ -41,14 +61,15 @@ export default function Signup() {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    autoComplete="fname"
-                    name="firstName"
+                    autoComplete="uname"
+                    name="username"
                     variant="outlined"
                     required
                     fullWidth
-                    id="firstName"
-                    label="First Name"
+                    id="username"
+                    label="User Name"
                     autoFocus
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -56,10 +77,11 @@ export default function Signup() {
                     variant="outlined"
                     required
                     fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="lname"
+                    id="firstname"
+                    label="First Name"
+                    name="firstname"
+                    autoComplete="fname"
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -71,6 +93,7 @@ export default function Signup() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -83,6 +106,7 @@ export default function Signup() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -98,6 +122,7 @@ export default function Signup() {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={handleSubmit}
               >
                 Sign Up
               </Button>

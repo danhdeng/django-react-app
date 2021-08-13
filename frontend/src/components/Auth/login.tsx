@@ -11,6 +11,40 @@ import useStyles from './login.styles.js';
 export default function Login() {
     const classes = useStyles();
 
+    const history=useHistory();
+    const initialFormData =Object.freeze({
+        email: '',
+        username:'',
+        firstname:'',
+        password: '',
+    });
+
+    const [formData, setFormData]=useState(initialFormData)
+
+    const handleChange=(e:any)=>{
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value.trim(),
+        })
+    }
+
+    const handleSubmit=(e:any)=>{
+        e.preventDefault();
+
+        axiosInstance.post('user/login/',{
+          email:formData.email,
+          password: formData.password,
+        }).then((res)=>{
+          history.push("/");
+          console.log(res);
+          console.log(res.data);
+        }).catch(async (error) => {
+          const response = error.response;
+          console.log(response.data);
+      });
+        
+    }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -32,6 +66,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={handleChange}
           />
           <TextField
             variant="outlined"
@@ -43,6 +78,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -54,6 +90,7 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>

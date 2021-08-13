@@ -1,0 +1,3 @@
+{
+    "watch": [".babelrc", "public/locales/**/*.json", "next.config.js", "src/**/*.ts"]
+}
