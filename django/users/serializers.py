@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import NewUser
-
 class CustomUserSerializer(serializers.ModelSerializer):
     email =serializers.EmailField(required=True)
     user_name =serializers.CharField(required=True)
@@ -15,10 +14,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         )
         extra_kwargs={'password':{'write_only':True}}
 
-        def create(self, vaidated_data):
-            password=vaidated_data.data.pop('password', None)
+        def create(self, validated_data):
+            password=validated_data.pop('password', None)
             #if all the fileds are the same, we can use the following
-            instance=self.Meta.model(**vaidated_data)
+            instance=self.Meta.model(**validated_data)
             if password is not None:
                 instance.set_password(password)
                 instance.save()
