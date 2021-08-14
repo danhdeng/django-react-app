@@ -1,10 +1,18 @@
-from django.urls import path, include
-from .views import PostListView, PostDetailView
+from rest_framework import urlpatterns
+from .views import PostList
+from rest_framework.routers import DefaultRouter
+
 app_name="blogapi"
 
-urlpatterns = [
-    path('<int:pk>/', PostDetailView.as_view(), name="post-details"),
-    path('', PostListView.as_view(), name="post-list")
+router =DefaultRouter()
+
+router.register('', PostList, basename="post")
+
+urlpatterns =router.urls
+
+# urlpatterns = [
+#     path('<int:pk>/', PostDetailView.as_view(), name="post-details"),
+#     path('', PostListView.as_view(), name="post-list")
     
-]
+# ]
 
