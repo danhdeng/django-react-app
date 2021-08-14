@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'rest_framework_swagger',
 
     #local appl
     'blog',
@@ -215,3 +216,6 @@ SIMPLE_JWT = {
 #Custom user model
 
 AUTH_USER_MODEL='users.NewUser'
+
+
+REST_FRAMEWORK={'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}
