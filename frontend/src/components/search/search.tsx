@@ -1,17 +1,43 @@
+// import React from 'react'
+// import { useLocation } from 'react-router-dom';
 
-import React from 'react';
+// export default function Search() {
+//     const location = useLocation();
+//     console.log(location)
+//     return (
+//         <div>
+//             Search Page
+//         </div>
+//     )
+// }
+
+
+import React, { useState, useEffect} from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import useStyles from './posts.styles';
+import useStyles from './search.styles';
 import Link from '@material-ui/core/Link';
+import { useLocation } from 'react-router-dom';
+import axiosInstance from '../../axios';
+import { Location } from "history";
 
-const Posts = (props:any) => {
-	const { posts } = props;
+const Search = () => {
 	const classes = useStyles();
+    const [posts, setPosts]=useState([]);
+    const location = useLocation<Location>();
+
+    useEffect(() =>{
+        axiosInstance.get('search/'+ location.state.search).then((res) => {
+			const allPosts = res.data;
+			setPosts(allPosts);
+			console.log(res.data);
+		});
+    },[])
+
 	if (!posts || posts.length === 0) return <p>Can not find any posts, sorry</p>;
 	return (
 		<React.Fragment>
@@ -22,7 +48,7 @@ const Posts = (props:any) => {
 							// Enterprise card is full width at sm breakpoint
 							<Grid item key={post.id} xs={12} md={4}>
 								<Card className={classes.card}>
-									<Link color="textPrimary" href={'post/' + post.id}  className={classes.link}>
+									<Link color="textPrimary" href={'post/' + post.slug}  className={classes.link}>
 										<CardMedia
 											className={classes.cardMedia}
 											image="https://source.unsplash.com/random"
@@ -57,4 +83,4 @@ const Posts = (props:any) => {
 		</React.Fragment>
 	);
 };
-export default Posts;
+export default Search;

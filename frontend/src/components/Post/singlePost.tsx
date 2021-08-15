@@ -63,13 +63,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SinglePost() {
-	const { slug } = useParams<{slug: string}>();
+	const { id } = useParams<{id: string}>();
+	console.log("the id is :",id);
 	const classes = useStyles();
 
 	const [data, setData]=useState({} as Post);
 
 	useEffect(() => {
-		axiosInstance.get(slug).then((res) => {
+		axiosInstance.get(id).then((res) => {
 			setData(res.data);
 			console.log(res.data);
 		});

@@ -10,7 +10,7 @@ import Signup from './components/Auth/register';
 import Login from './components/Auth/login';
 import Logout from './components/Auth/logout';
 import SinglePost from './components/Post/singlePost';
-
+import Search from './components/search/search';
 const routing=(
   <Router>
     <React.StrictMode>
@@ -20,7 +20,8 @@ const routing=(
           <Route exact path='/register' component={Signup} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/logout' component={Logout} />
-          <Route exact path='/post/:slug' component={SinglePost} />
+          <Route exact path='/post/:id' component={SinglePost} />
+          <Route exact path='/search' component={Search} />
         </Switch>
         <Footer />
     </React.StrictMode>

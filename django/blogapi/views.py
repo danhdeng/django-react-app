@@ -2,7 +2,7 @@ from rest_framework import generics
 from blog.models import Post
 from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser, IsAuthenticated, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 
@@ -18,20 +18,53 @@ class PostUserWritePermission(BasePermission):
         else:
             # Check permissions for write request
             return obj.author==request.user
-
-class PostList(viewsets.ModelViewSet):
+        
+class PostListView(generics.ListCreateAPIView):
     permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
+    queryset=Post.objects.all()
     serializer_class = PostSerializer
-    # queryset=Post.objects.all()
-    def get_object(self, queryset=None, **kwargs):
-        item=self.kwargs.get("pk")
-        print(item)
-        return get_object_or_404(Post, slug=item)
-    
-    def get_queryset(self):
-        return Post.objects.all()
     
 
+class PostDetailView(generics.RetrieveAPIView, PostUserWritePermission):
+    permission_classes=[PostUserWritePermission]
+    queryset=Post.objects.all()
+    serializer_class = PostSerializer
+    
+    # def get_object(self, queryset=None, **kwargs):
+    #     item=self.kwargs.get("pk")
+    #     return get_object_or_404(Post, slug=item)
+        
+class PostListdetailFilter(generics.ListAPIView):
+    queryset=Post.objects.all()
+    serializer_class= PostSerializer
+    filter_backends=[filters.SearchFilter]
+    search_fields=['^slug']
+    
+
+# The search behavior may be restricted by prepending various characters to the search_fields.
+
+#     '^' Starts-with search.
+#     '=' Exact matches.
+#     '@' Full-text search. (Currently only supported Django's PostgreSQL backend.)
+#     '$' Regex search.
+
+
+
+# #rest_framework viewsets
+# class PostList(viewsets.ModelViewSet):
+#     permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
+#     serializer_class = PostSerializer
+#     # queryset=Post.objects.all()
+#     def get_object(self, queryset=None, **kwargs):
+#         item=self.kwargs.get("pk")
+#         print(item)
+#         return get_object_or_404(Post, slug=item)
+    
+#     def get_queryset(self):
+#         return Post.objects.all()
+    
+    
+#rest_framework viewsets
 # class PostList(viewsets.ViewSet):
 #     permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
 #     queryset=Post.objects.all()
