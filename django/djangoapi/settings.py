@@ -9,10 +9,9 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 from datetime import timedelta
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -219,3 +218,8 @@ AUTH_USER_MODEL='users.NewUser'
 
 
 REST_FRAMEWORK={'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}
+
+#define the path to store image files from uploaded
+MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL='/media/'

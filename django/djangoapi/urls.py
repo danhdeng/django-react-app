@@ -24,6 +24,8 @@ from rest_framework.documentation import include_docs_urls
 from django.conf.urls import url
 from rest_framework_swagger.views import get_swagger_view
 
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -38,3 +40,5 @@ urlpatterns = [
     path('swaggerui/', get_swagger_view(title='MyBlog API')),
     url(r'^$', get_swagger_view(title='MyBlog API')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

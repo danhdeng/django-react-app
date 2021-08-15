@@ -1,11 +1,13 @@
 from rest_framework import generics
+from rest_framework.serializers import Serializer
 from blog.models import Post
 from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser, IsAuthenticated, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.shortcuts import get_object_or_404
+from rest_framework.parsers import MultiPartParser, FormParser
 
 #Create your views here.
 
@@ -76,7 +78,22 @@ class AdminPostDeleteView(generics.RetrieveDestroyAPIView):
     authentication_classes = [JWTAuthentication]
     queryset=Post.objects.all()
     serializer_class = PostSerializer
-
+    
+    
+class AdminPostUploadView(generics.CreateAPIView):
+    # permission_classes=[IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    parser_classes=[MultiPartParser, FormParser]
+    
+    def post(self, request, format=None):
+        print(request.data)
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
 # The search behavior may be restricted by prepending various characters to the search_fields.
 
 #     '^' Starts-with search.

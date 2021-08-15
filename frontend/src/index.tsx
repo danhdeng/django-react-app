@@ -12,7 +12,7 @@ import Logout from './components/auth/logout';
 import SinglePost from './components/post/singlePost';
 import Search from './components/search/search';
 import Admin from './admin';
-import Create from './components/admin/create';
+import Create from './components/admin/createupload';
 import Edit from './components/admin/edit';
 import Delete from './components/admin/delete';
 

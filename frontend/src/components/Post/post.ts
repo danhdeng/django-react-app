@@ -7,6 +7,7 @@ interface Post{
     excerpt: String,
     content: String,
     status: String,
+    image: string,
 }
 
 export default Post

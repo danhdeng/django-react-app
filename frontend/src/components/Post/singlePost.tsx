@@ -48,19 +48,14 @@ import axiosInstance from '../../axios';
 import { useParams } from 'react-router-dom';
 //MaterialUI
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import CardMedia from '@material-ui/core/CardMedia';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { Hidden } from '@material-ui/core';
 import Post from './post'
-
-const useStyles = makeStyles((theme) => ({
-	paper: {
-		marginTop: theme.spacing(8),
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-}));
+import useStyles from './singlepost.styles';
 
 export default function SinglePost() {
 	const { id } = useParams<{id: string}>();
@@ -78,31 +73,31 @@ export default function SinglePost() {
 	}, []);
 
 	return (
-		
 		<Container component="main" maxWidth="md">
 			<CssBaseline />
 			<div className={classes.paper}></div>
-			<div>
-				<Container maxWidth="sm">
-					<Typography
-						component="h1"
-						variant="h2"
-						align="center"
-						color="textPrimary"
-						gutterBottom
-					>
-						{data?.title}
+			<Card className={classes.card}>
+				<CardMedia className={classes.cardMedia} image={data.image} title={""} />
+				<div className={classes.cardDetails}>
+					<CardContent>
+					<Typography component="h2" variant="h5">
+						{data.title}
 					</Typography>
-					<Typography
-						variant="h5"
-						align="center"
-						color="textSecondary"
-						paragraph
-					>
-						{data?.excerpt}
+					<Typography variant="subtitle1" color="textSecondary">
+						{data.excerpt}
 					</Typography>
-				</Container>
-			</div>
+					<Typography variant="subtitle1" paragraph>
+						{data.content}
+					</Typography>
+					<Typography variant="subtitle1" color="primary">
+						Continue reading...
+					</Typography>
+					</CardContent>
+				</div>
+				{/* <Hidden xsDown>
+					<CardMedia className={classes.cardMedia} image={data.image} title={""} />
+				</Hidden> */}
+			</Card>
 		</Container>
 	);
 }

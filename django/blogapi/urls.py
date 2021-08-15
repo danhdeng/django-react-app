@@ -10,6 +10,7 @@ from .views import (PostListView,
                     AdminPostDetailView,
                     AdminPostEditView,
                     AdminPostDeleteView,
+                    AdminPostUploadView
                     )
 
 app_name="blogapi"
@@ -29,6 +30,7 @@ urlpatterns = [
     path('admin/edit/postdetail/<int:pk>/', AdminPostDetailView.as_view(), name="admin-detailpost"),
     path('admin/edit/<int:pk>/', PostEditView.as_view(), name="post-edit"),
     path('admin/delete/<int:pk>/', AdminPostDeleteView.as_view(), name="post-delete"),
+    path('admin/image/upload/', AdminPostUploadView.as_view(), name="admin-upload"),
     
     
 ]

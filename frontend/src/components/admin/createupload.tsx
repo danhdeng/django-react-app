@@ -10,8 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import IconButton from '@material-ui/core/IconButton';
-import { PhotoCamera } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -37,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Create() {
-	const [postImage, setPostImage]=useState({image:null})
+	const [postImage, setPostImage]=useState<any|null>(null)
 	function slugify(string:string) {
 		const a =
 			'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
@@ -66,7 +64,7 @@ export default function Create() {
 		image: ''
 	});
 
-	const [formData, updateFormData] = useState(initialFormData);
+	const [postData, updateFormData] = useState(initialFormData);
 
 	const handleChange = (e:any) => {
 		if (e.target.name === 'image') {
@@ -77,14 +75,14 @@ export default function Create() {
 		}
 		if (e.target.name === 'title') {
 			updateFormData({
-				...formData,
+				...postData,
 				// Trimming any whitespace
 				[e.target.name]: e.target.value.trim(),
 				slug: slugify(e.target.value.trim()),
 			});
 		} else {
 			updateFormData({
-				...formData,
+				...postData,
 				// Trimming any whitespace
 				[e.target.name]: e.target.value.trim(),
 			});
@@ -93,15 +91,18 @@ export default function Create() {
 
 	const handleSubmit = (e:any) => {
 		e.preventDefault();
+
+		const config={headers: {'Content-Type': 'multipart/form-data'}};
+		const URL='http://127.0.0.1:8000/api/admin/image/upload/';
+		let formData:FormData=new FormData();
+		formData.append('title', postData.title)
+		formData.append('slug', postData.slug)
+		formData.append('author', '1')
+		formData.append('excerpt', postData.excerpt)
+		formData.append('content', postData.content)
+		formData.append('image', postImage.image[0] )
 		axiosInstance
-			.post(`admin/create/`, {
-				title: formData.title,
-				slug: formData.slug,
-				author: 1,
-				excerpt: formData.excerpt,
-				content: formData.content,
-				image: postImage.image
-			})
+			.post(URL, formData,config)
 			.then((res) => {
 				history.push('/admin/');
 			});
@@ -154,7 +155,7 @@ export default function Create() {
 								label="slug"
 								name="slug"
 								autoComplete="slug"
-								value={formData.slug}
+								value={postData.slug}
 								onChange={handleChange}
 							/>
 						</Grid>
