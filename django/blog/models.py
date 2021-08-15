@@ -27,7 +27,7 @@ class Post(models.Model):
     excerpt = models.TextField(null=True, blank=True)
     content = models.TextField()
     slug =models.SlugField(max_length=300, unique_for_date='published')
-    published = models.DateTimeField(auto_now_add=True)
+    published = models.DateTimeField(default=timezone.now)
     author =models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name='blog_posts')
     status=models.CharField(max_length=15, choices=options, default='published')
     objects= models.Manager() #default data manager

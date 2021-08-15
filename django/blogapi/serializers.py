@@ -13,5 +13,9 @@ class PostSerializer(serializers.ModelSerializer):
             'excerpt',
             'content',
             'status',
+            'published',
         )
+        extra_kwargs = {
+            'published' : {'required' : False}
+        }
         

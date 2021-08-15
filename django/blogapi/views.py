@@ -4,6 +4,7 @@ from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser, IsAuthenticated, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
 from rest_framework import viewsets, filters
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.shortcuts import get_object_or_404
 
 #Create your views here.
@@ -20,12 +21,16 @@ class PostUserWritePermission(BasePermission):
             return obj.author==request.user
         
 class PostListView(generics.ListCreateAPIView):
-    permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
+    permission_classes=[IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
     queryset=Post.objects.all()
     serializer_class = PostSerializer
     
-
-class PostDetailView(generics.RetrieveAPIView, PostUserWritePermission):
+    
+    # def get_queryset(self):
+    #     user=self.request.user;
+    #     return Post.objects.filter(author=user)
+class PostDetailView(generics.RetrieveUpdateAPIView, PostUserWritePermission):
     permission_classes=[PostUserWritePermission]
     queryset=Post.objects.all()
     serializer_class = PostSerializer
@@ -40,6 +45,37 @@ class PostListdetailFilter(generics.ListAPIView):
     filter_backends=[filters.SearchFilter]
     search_fields=['^slug']
     
+class PostCreateView(generics.CreateAPIView):
+    permission_classes=[IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    queryset=Post.objects.all()
+    serializer_class = PostSerializer
+    
+class AdminPostDetailView(generics.RetrieveAPIView):
+    permission_classes=[IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    queryset=Post.objects.all()
+    serializer_class = PostSerializer
+    
+class AdminPostEditView(generics.RetrieveUpdateAPIView):
+    permission_classes=[IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    queryset=Post.objects.all()
+    serializer_class = PostSerializer
+
+class PostEditView(generics.UpdateAPIView):
+    permission_classes=[IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    queryset=Post.objects.all()
+    serializer_class = PostSerializer
+    
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+class AdminPostDeleteView(generics.RetrieveDestroyAPIView):
+    permission_classes=[IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    queryset=Post.objects.all()
+    serializer_class = PostSerializer
 
 # The search behavior may be restricted by prepending various characters to the search_fields.
 

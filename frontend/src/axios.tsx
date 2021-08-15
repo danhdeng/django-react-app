@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { error } from 'console';
 
 const baseURL='http://127.0.0.1:8000/api/'
 
@@ -8,7 +7,7 @@ const axiosInstance =axios.create({
     timeout:5000,
     headers:{
         Authorization: localStorage.getItem('access_token') 
-        ?  'JWT ' +localStorage.getItem('access_token')
+        ?  'Bearer ' +localStorage.getItem('access_token')
         :   null,
         'Content-Type' : 'application/json',
         accept: 'application/json',
@@ -22,7 +21,7 @@ axiosInstance.interceptors.response.use(
     async function(error){
         console.log(error);
         const originalRequest=error.config;
-        if (typeof error.repsonse==='undefined'){
+        if (typeof error.response==='undefined'){
             alert(
                 'A server/network error occurred. ' +
                 'Looks like CORS might be the problem.' +
@@ -38,7 +37,7 @@ axiosInstance.interceptors.response.use(
             return Promise.reject(error);
         }
         if(
-            error.response.code==='token_not_valid' &&
+            error.response.data.code==='token_not_valid' &&
             error.response.status===401 &&
             error.response.statusText==='Unauthorized'
         ){
@@ -55,9 +54,9 @@ axiosInstance.interceptors.response.use(
                                             localStorage.setItem('refresh_token', response.data.refresh);
                                             console.log("new access token",localStorage.gtItem('access_token'));
                                             axiosInstance.defaults.headers['Authorization'] =
-                                                'JWT ' + response.data.access;
+                                                'Bearer ' + response.data.access;
                                             originalRequest.headers['Authorization'] =
-                                                'JWT ' + response.data.access;
+                                                'Bearer ' + response.data.access;
 
                                             return axiosInstance(originalRequest);
                                         })

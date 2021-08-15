@@ -4,13 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom'
-import  Header from './components/Header/Header';
-import  Footer from './components/Footer/Footer';
-import Signup from './components/Auth/register';
-import Login from './components/Auth/login';
-import Logout from './components/Auth/logout';
-import SinglePost from './components/Post/singlePost';
+import  Header from './components/header/Header';
+import  Footer from './components/footer/Footer';
+import Signup from './components/auth/register';
+import Login from './components/auth/login';
+import Logout from './components/auth/logout';
+import SinglePost from './components/post/singlePost';
 import Search from './components/search/search';
+import Admin from './admin';
+import Create from './components/admin/create';
+import Edit from './components/admin/edit';
+import Delete from './components/admin/delete';
+
 const routing=(
   <Router>
     <React.StrictMode>
@@ -21,7 +26,13 @@ const routing=(
           <Route exact path='/login' component={Login} />
           <Route exact path='/logout' component={Logout} />
           <Route exact path='/post/:id' component={SinglePost} />
+          <Route exact path='/admin' component={Admin} />
+          <Route exact path='/admin/create' component={Create} />
+          <Route exact path='/admin/edit/:id' component={Edit} />
+          <Route exact path='/admin/delete/:id' component={Delete} />
           <Route exact path='/search' component={Search} />
+
+
         </Switch>
         <Footer />
     </React.StrictMode>

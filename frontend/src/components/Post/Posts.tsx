@@ -6,7 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import useStyles from './posts.styles';
+import useStyles from './posts.styles.js';
 import Link from '@material-ui/core/Link';
 
 const Posts = (props:any) => {
