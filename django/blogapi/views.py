@@ -5,7 +5,9 @@ from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser, IsAuthenticated, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
 from rest_framework import viewsets, filters, status
 from rest_framework.response import Response
-from rest_framework_simplejwt.authentication import JWTAuthentication
+# from rest_framework_simplejwt.authentication import JWTAuthentication
+from oauth2_provider.contrib.rest_framework import OAuth2Authentication
+from drf_social_oauth2.authentication import SocialAuthentication 
 from django.shortcuts import get_object_or_404
 from rest_framework.parsers import MultiPartParser, FormParser
 
@@ -23,8 +25,8 @@ class PostUserWritePermission(BasePermission):
             return obj.author==request.user
         
 class PostListView(generics.ListCreateAPIView):
-    permission_classes=[IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+    # permission_classes=[IsAuthenticated]
+    # authentication_classes = [OAuth2Authentication, SocialAuthentication]
     queryset=Post.objects.all()
     serializer_class = PostSerializer
     
@@ -49,25 +51,25 @@ class PostListdetailFilter(generics.ListAPIView):
     
 class PostCreateView(generics.CreateAPIView):
     permission_classes=[IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+    authentication_classes = [OAuth2Authentication, SocialAuthentication]
     queryset=Post.objects.all()
     serializer_class = PostSerializer
     
 class AdminPostDetailView(generics.RetrieveAPIView):
     permission_classes=[IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+    authentication_classes = [OAuth2Authentication, SocialAuthentication]
     queryset=Post.objects.all()
     serializer_class = PostSerializer
     
 class AdminPostEditView(generics.RetrieveUpdateAPIView):
     permission_classes=[IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+    authentication_classes = [OAuth2Authentication, SocialAuthentication]
     queryset=Post.objects.all()
     serializer_class = PostSerializer
 
 class PostEditView(generics.UpdateAPIView):
     permission_classes=[IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+    authentication_classes = [OAuth2Authentication, SocialAuthentication]
     queryset=Post.objects.all()
     serializer_class = PostSerializer
     
@@ -75,14 +77,14 @@ class PostEditView(generics.UpdateAPIView):
         return super().update(request, *args, **kwargs)
 class AdminPostDeleteView(generics.RetrieveDestroyAPIView):
     permission_classes=[IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+    authentication_classes = [OAuth2Authentication, SocialAuthentication]
     queryset=Post.objects.all()
     serializer_class = PostSerializer
     
     
 class AdminPostUploadView(generics.CreateAPIView):
-    # permission_classes=[IsAuthenticated]
-    # authentication_classes = [JWTAuthentication]
+    permission_classes=[IsAuthenticated]
+    authentication_classes = [OAuth2Authentication, SocialAuthentication]
     parser_classes=[MultiPartParser, FormParser]
     
     def post(self, request, format=None):

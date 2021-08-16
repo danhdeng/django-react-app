@@ -15,7 +15,6 @@ django-filter==2.4.0
 django-oauth-toolkit==1.5.0
 django-rest-swagger==2.2.0
 djangorestframework==3.12.4
-djangorestframework-simplejwt==4.7.2
 drf-social-oauth2==1.0.9
 idna==3.2
 itypes==1.2.0

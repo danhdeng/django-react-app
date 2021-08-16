@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import axiosInstance from '../../axios';
+import axiosInstance from '../axios';
 import { useHistory } from 'react-router-dom';
 
 //Material ui
@@ -30,15 +30,19 @@ export default function Login() {
 
     const handleSubmit=(e:any)=>{
         e.preventDefault();
-        axiosInstance.post('token/',{
-          email:formData.email,
+        axiosInstance.post('auth/token/',{
+          username:formData.email,
           password: formData.password,
+          grant_type: 'password',
+          client_id: '5aSSt7185Vq8XaGgIqMfAxV1a1vhWitQVyjb1b0S',
+          client_secret: '2VzckRcOifYN6PdRMtDDrZ8tmw9sGy8WHSBDdFbGKmQbSlHW3AKQSdfjIcIoUmbqecmxmSNF2YvmaLh5yBIF9OVUC8smisXfQO0lwwEkOk8vBwV2wZmkI2G9WpojZLf0',
         }).then((res)=>{
-          history.push("/");
-          localStorage.setItem("access_token", res.data.access);
-          localStorage.setItem("refresh_token", res.data.refresh);
-          axiosInstance.defaults.headers["Authorization"]=`Bearer ${localStorage.getItem('access_token')}`
-          history.push('/');
+           console.log(res.data);
+          // history.push("/");
+          localStorage.setItem("access_token", res.data.access_token);
+          localStorage.setItem("refresh_token", res.data.refresh_token);
+          // axiosInstance.defaults.headers["Authorization"]=`Bearer ${localStorage.getItem('access_token')}`
+          // history.push('/');
         }).catch((error) => {
           console.log(error);
       });

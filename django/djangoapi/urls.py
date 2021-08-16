@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+# from rest_framework_simplejwt.views import (
+#     TokenObtainPairView,
+#     TokenRefreshView,
+# )
 from rest_framework.schemas import get_schema_view
 from rest_framework.documentation import include_docs_urls
 from django.conf.urls import url
@@ -28,9 +28,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^auth/', include('drf_social_oauth2.urls', namespace='drf')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
+    # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
     path('api/', include('blogapi.urls', namespace="blog_api")),
     path('api/user/', include('users.urls', namespace="users")),
