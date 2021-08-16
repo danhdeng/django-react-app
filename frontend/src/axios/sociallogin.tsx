@@ -8,9 +8,9 @@ const SocialLogin = (accesstoken:String) => {
 			token: accesstoken,
 			backend: 'facebook',
 			grant_type: 'convert_token',
-			client_id: '05GYopkyMDxFakgCSuNtpOLrNcyJwU054wZfYBt1',
+			client_id: '6UfjhsylRu5YsJAtcWSFg7MajswUd5lwvpb0mvWV',
 			client_secret:
-				'U3r3rmtff7t52Xa1chfzGf5vtl06zr4PwGbi8sWBcilTKs0YJEm278JPmXbcgMsyYpxYMQbDKFsyjhrzKwDLW8VMfW0ePZmrRuSmssnFPvqjeodYsNTfObTAzxOxZKuH',
+				'bk8cOX7KEaRiwOuDfUD3HF9yKV6N1ClPzHfYsgB3pH3Z8411AWHWzsvU9BaWCwAWAGdK03BaiKMkupEOrB4FYRtL05T7CQjfy6JopHWHjqxjGcNxhe8jr8na7gj7RTzT',
 		})
 		.then((res) => {
 			localStorage.setItem('access_token', res.data.access_token);

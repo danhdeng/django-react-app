@@ -2,14 +2,14 @@ from rest_framework import serializers
 from .models import NewUser
 class CustomUserSerializer(serializers.ModelSerializer):
     email =serializers.EmailField(required=True)
-    user_name =serializers.CharField(required=True)
+    username =serializers.CharField(required=True)
     password =serializers.CharField(min_length=8, write_only=True)
 
     class Meta:
         model = NewUser
         fields =(
             'email',
-            'user_name',
+            'username',
             'password',
         )
         extra_kwargs={'password':{'write_only':True}}

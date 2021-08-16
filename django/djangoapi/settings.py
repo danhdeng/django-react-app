@@ -55,8 +55,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+	'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -169,8 +170,11 @@ REST_FRAMEWORK = {
 # Custom permissions
 
 CORS_ALLOWED_ORIGINS = [
+	"https://localhost:3000",
     "http://localhost:3000",
-    "https://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = False
@@ -213,12 +217,15 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Facebook configuration
-SOCIAL_AUTH_FACEBOOK_KEY = '1209575486170050'
-SOCIAL_AUTH_FACEBOOK_SECRET = '780599b481c2d4127adfd1369f966e72'
+SOCIAL_AUTH_FACEBOOK_KEY = ('1209575486170050')
+SOCIAL_AUTH_FACEBOOK_SECRET = ('780599b481c2d4127adfd1369f966e72')
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://localhost:3000/'
 
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
 # Email is not sent by default, to get it, you must request the email permission.
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, username, email'
+    'fields': 'id, name, email'
 }
+
+SOCIAL_AUTH_USER_FIELDS=['email','username', 'first_name', 'password']

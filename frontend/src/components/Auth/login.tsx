@@ -42,15 +42,15 @@ export default function Login() {
           username:formData.email,
           password: formData.password,
           grant_type: 'password',
-          client_id: 'mZtIzzot5OKJFmJzPppUAQCvM7E8bzPOugCeqTme',
-          client_secret: 'eEgE36QVniCPI2VFe3BZp8hjKOhpE1fBf15j1XA0QgynSpT3xPAFYJ6H5EmjiozYPi4a8usRZg6svkascmN3hYgr9aXS4lU0Xf2gr7JODGyteZP0o9A4bxB5ejPw5eZ1',
+          client_id: 'a0t3GHYLH2p2PpFS2YxZYDUL0yhsNwsufWiCgnto',
+          client_secret: 'V3Jev013m3pItFxCVKQVQNhNVZWUtLiId5PCY22Z5yiV70zBHKtfKhIl2L4ZdgEUnp4jOt84hSLo45hhDpiGYPRDvqzIoa9AEhGaTuOxheksS6P6G2L7T4NDiPTZWtli',
         }).then((res)=>{
            console.log(res.data);
           // history.push("/");
           localStorage.setItem("access_token", res.data.access_token);
           localStorage.setItem("refresh_token", res.data.refresh_token);
-          // axiosInstance.defaults.headers["Authorization"]=`Bearer ${localStorage.getItem('access_token')}`
-          // history.push('/');
+          axiosInstance.defaults.headers["Authorization"]=`Bearer ${localStorage.getItem('access_token')}`
+          history.push('/');
         }).catch((error) => {
           console.log(error);
       });
