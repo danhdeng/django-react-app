@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom'
-import  Header from './components/header/Header';
-import  Footer from './components/footer/Footer';
+import  Header from './components/header/header';
+import  Footer from './components/footer/footer';
 import Signup from './components/auth/register';
 import Login from './components/auth/login';
 import Logout from './components/auth/logout';

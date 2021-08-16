@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import axiosInstance from '../axios';
 import { useHistory } from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login';
+import SocialLogin from '../../axios/sociallogin';
 
 //Material ui
 import { Avatar, Button, CssBaseline, TextField, 
@@ -21,6 +23,12 @@ export default function Login() {
 
     const [formData, setFormData]=useState(initialFormData)
 
+    const responseFacebook = (response:any) => {
+      console.log("fb response:",response);
+      SocialLogin(response.accessToken);
+
+    }
+
     const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setFormData({
             ...formData,
@@ -34,8 +42,8 @@ export default function Login() {
           username:formData.email,
           password: formData.password,
           grant_type: 'password',
-          client_id: '5aSSt7185Vq8XaGgIqMfAxV1a1vhWitQVyjb1b0S',
-          client_secret: '2VzckRcOifYN6PdRMtDDrZ8tmw9sGy8WHSBDdFbGKmQbSlHW3AKQSdfjIcIoUmbqecmxmSNF2YvmaLh5yBIF9OVUC8smisXfQO0lwwEkOk8vBwV2wZmkI2G9WpojZLf0',
+          client_id: 'mZtIzzot5OKJFmJzPppUAQCvM7E8bzPOugCeqTme',
+          client_secret: 'eEgE36QVniCPI2VFe3BZp8hjKOhpE1fBf15j1XA0QgynSpT3xPAFYJ6H5EmjiozYPi4a8usRZg6svkascmN3hYgr9aXS4lU0Xf2gr7JODGyteZP0o9A4bxB5ejPw5eZ1',
         }).then((res)=>{
            console.log(res.data);
           // history.push("/");
@@ -98,6 +106,10 @@ export default function Login() {
           >
             Sign In
           </Button>
+          <FacebookLogin
+              appId="1209575486170050"
+              fields="name,email,picture"
+              callback={responseFacebook} />,
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
